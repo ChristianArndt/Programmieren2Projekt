@@ -1,0 +1,38 @@
+﻿Dokumentation 1
+
+
+Vorentwurf 6.5.2020
+
+
+Gruppe: Team Flusspferd
+
+Kevin Jaroschewski
+Christian Arndt
+Kevin Tomelitsch
+
+
+
+Spielbeschreibung:
+
+
+“Ziel bei „Vier gewinnt“ ist es, die Steine der eigenen Farbe so zu platzieren, dass 4 Steine diagonal, waagerecht oder senkrecht in einer Reihe zum liegen kommen. Der Spieler, dem das zuerst gelingt, der erhält einen Punkt oder hat gewonnen. Jeder Spieler legt abwechselnd einen Stein (Multiplayer). Sollte das Feld voll sein, bevor ein Spieler gewinnt, geht das Spiel unentschieden aus”
+
+
+
+
+
+
+“Konzept”
+Spieler () 
+Spielchips ()
+Spiellogik () Feststellung des Gewinners
+Buttons () → Menü oberhalb(Neustart, zurück ins Menü)
+Rundenzeit (Uhr oberhalb/ 5 Sekunden o.Ä.)
+        
+sonstige Ideen:
+Spielfeld - evtl. Array ( 7 x 7) 
+Farbauswahl (Random oder selber auswählen)
+Interface (API)
+Kein Computergegner(?)
+Animationen?
+Sounds?
