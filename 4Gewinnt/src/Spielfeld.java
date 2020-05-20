@@ -1,25 +1,23 @@
 import javax.swing.*;
-import java.awt.Graphics;
+import java.awt.*;
 
-public class Spielfeld {
+public class Spielfeld extends JPanel {
 
-   // JFrame.Label[][] feld;
     public static void main(String[] args) {
-        /*
-        int[][] feld = new int[6][6];
-        //Window
-        JFrame frame = new JFrame("4 Gewinnt");
-        frame.setSize(600,500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        Spielfeld feld = new Spielfeld();
+        JFrame app = new JFrame("4 Gewinnt");
+        app.add(feld, BorderLayout.CENTER);
+        app.setSize(300, 300);
+        app.setLocationRelativeTo(null);
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        app.setVisible(true);
 
-        frame.setLayout(new GridLayout(7,7 ));
-        */
+
     }
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawRect(100, 50, 100, 100);
 
-    public void createFeld(Graphics g)
-    {
-        g.drawString("4 Gewinnt",10,10);
     }
 
 
