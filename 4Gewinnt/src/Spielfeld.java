@@ -8,6 +8,7 @@ public class Spielfeld {
     JPanel topMenu = new JPanel();
     JPanel bottomMenu = new JPanel();
     JPanel feldPanel = new JPanel();
+    
 
     Spielfeld() {
         //Frame initializion
@@ -17,6 +18,7 @@ public class Spielfeld {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
+        frame.setResizable(false);
         createFeld();
     }
 
@@ -41,10 +43,19 @@ public class Spielfeld {
     }
     public void updateWindow()
     {
-        frame.add(topMenu, BorderLayout.NORTH);
+   
+        frame.add(topMenu, BorderLayout.NORTH);                                        
         frame.add(feldPanel, BorderLayout.CENTER);
         frame.add(bottomMenu, BorderLayout.SOUTH);
-        bottomMenu.add(new JButton("klick"));
+        bottomMenu.add(new JButton("klick "));
+        bottomMenu.add(new JButton("klick "));
+        bottomMenu.add(new JButton("klick "));
+        bottomMenu.add(new JButton("klick "));
+        bottomMenu.add(new JButton("klick "));
+        bottomMenu.add(new JButton("klick "));
+        bottomMenu.add(new JButton("klick "));
+        topMenu.add(new JButton("restart/clear"));
+        topMenu.add(new JButton("back to menu"));
     }
 
 }
