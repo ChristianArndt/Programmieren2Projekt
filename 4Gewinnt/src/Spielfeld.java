@@ -1,14 +1,24 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-public class Spielfeld {
+public class Spielfeld implements  ActionListener{
     JFrame frame;
     JLabel[] feld;
     JPanel topMenu = new JPanel();
     JPanel bottomMenu = new JPanel();
     JPanel feldPanel = new JPanel();
-    
+    //Buttons
+    JButton spalte1 = new JButton("Button");
+    JButton spalte2 = new JButton("Button");
+    JButton spalte3 = new JButton("Button");
+    JButton spalte4 = new JButton("Button");
+    JButton spalte5 = new JButton("Button");
+    JButton spalte6 = new JButton("Button");
+    JButton spalte7 = new JButton("Button");
+
 
     Spielfeld() {
         //Frame initializion
@@ -47,15 +57,25 @@ public class Spielfeld {
         frame.add(topMenu, BorderLayout.NORTH);                                        
         frame.add(feldPanel, BorderLayout.CENTER);
         frame.add(bottomMenu, BorderLayout.SOUTH);
-        bottomMenu.add(new JButton("klick "));
-        bottomMenu.add(new JButton("klick "));
-        bottomMenu.add(new JButton("klick "));
-        bottomMenu.add(new JButton("klick "));
-        bottomMenu.add(new JButton("klick "));
-        bottomMenu.add(new JButton("klick "));
-        bottomMenu.add(new JButton("klick "));
+        spalte1.addActionListener(this);
+        bottomMenu.add(spalte1);
+        bottomMenu.add(spalte2);
+        bottomMenu.add(spalte3);
+        bottomMenu.add(spalte4);
+        bottomMenu.add(spalte5);
+        bottomMenu.add(spalte6);
+        bottomMenu.add(spalte7);
         topMenu.add(new JButton("restart/clear"));
         topMenu.add(new JButton("back to menu"));
+
+
     }
 
+
+    @Override
+    public void actionPerformed(ActionEvent x) {
+        if(x.getSource() == spalte1){
+            System.out.println("Geklickt");
+        }
+    }
 }
