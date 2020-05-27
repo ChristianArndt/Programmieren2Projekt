@@ -5,6 +5,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 public class Spielfeld implements  ActionListener{
+    //Verknüpfungen
+    Spielmechanik gameMech = new Spielmechanik();
     JFrame frame;
     JLabel[] feld;
     JPanel topMenu = new JPanel();
@@ -42,7 +44,7 @@ public class Spielfeld implements  ActionListener{
         feld = new JLabel[49];
         feldPanel.setLayout(new GridLayout(7,7));
         for (i = 0; i < 49; i++){
-            feld[i]= new JLabel("");
+            feld[i]= new JLabel(" ");
             feld[i].setOpaque(true);
             feld[i].setBackground(Color.white);
             feld[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
@@ -67,15 +69,17 @@ public class Spielfeld implements  ActionListener{
         bottomMenu.add(spalte7);
         topMenu.add(new JButton("restart/clear"));
         topMenu.add(new JButton("back to menu"));
-
-
     }
-
-
     @Override
     public void actionPerformed(ActionEvent x) {
         if(x.getSource() == spalte1){
-            System.out.println("Geklickt");
+            for (int i = 0; i < 49; i++) {
+                    if(feld[i].getText() == " ")
+                    {
+                        feld[i].setText("T");
+                    }
+                }
+            }
         }
     }
-}
+
