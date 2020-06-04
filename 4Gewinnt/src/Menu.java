@@ -14,6 +14,16 @@ public class Menu {
         JButton joinGame = new JButton("Join Lobby");
 
 
+        try {String current = new java.io.File( "." ).getCanonicalPath();
+        System.out.println("Current dir:"+current);
+ String currentDir = System.getProperty("user.dir");
+        System.out.println("Current dir using System:" +currentDir);
+            
+        } catch (Exception e) {
+        }
+        
+        
+
         //GridBagLayout
         frame.setLayout(new GridBagLayout());
         GridBagConstraints contain = new GridBagConstraints();
