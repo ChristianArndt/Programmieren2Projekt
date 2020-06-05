@@ -12,7 +12,7 @@ public class Spielfeld implements ActionListener {
     // Verknüpfungen
     Spielmechanik gameMech = new Spielmechanik();
     JFrame frame;
-    JLabel[] feld;
+    JLabel[][] feld;
     JPanel topMenu = new JPanel();
     JPanel bottomMenu = new JPanel();
     JPanel feldPanel = new JPanel();
@@ -22,7 +22,6 @@ public class Spielfeld implements ActionListener {
     // Icons einfügen
     Image img1;
     Image img2;
-  
 
     Spielfeld() {
         // Frame initializion
@@ -51,15 +50,18 @@ public class Spielfeld implements ActionListener {
 
     public void createFeld() {
 
-        feld = new JLabel[49];
+        feld = new JLabel[7][7];
         feldPanel.setLayout(new GridLayout(7, 7));
-        for (int i = 0; i < 49; i++) {
-            feld[i] = new JLabel(" ");
-            feld[i].setOpaque(true);
-            feld[i].setBackground(Color.white);
-            feld[i].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-            feld[i].setPreferredSize(new Dimension(8, 8));
-            feldPanel.add(feld[i]);
+        for (int i = 0; i < feld.length; i++) {
+            for (int j = 0; j < feld[i].length; j++) {
+                feld[i][j] = new JLabel(" ");
+                feld[i][j].setOpaque(true);
+                feld[i][j].setBackground(Color.white);
+                feld[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                feld[i][j].setPreferredSize(new Dimension(8, 8));
+                feldPanel.add(feld[i][j]);
+            }
+
         }
         for (int i = 0; i < 7; i++)
 
@@ -87,10 +89,13 @@ public class Spielfeld implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent x) {
         if (x.getSource() == spaltenArray[0]) {
-            for (int i = 0; i < 49; i++) {
-                if (feld[i].getText() == " ") {
-                    feld[i].setText("T");
+            for (int i = 0; i < feld.length; i++) {
+                for (int j = 0; j < feld[i].length; j++) {
+                    if (feld[i] [j].getText() == " ") {
+                        feld[i] [j].setText("T");
+                    }
                 }
+
             }
         }
     }
