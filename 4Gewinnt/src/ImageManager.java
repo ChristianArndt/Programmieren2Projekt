@@ -3,9 +3,9 @@ import java.awt.*;
 
 public class ImageManager {
     public static ImageIcon img1;
-    public static ImageIcon img2;
+    public ImageIcon img2;
 
-    public static void loadandresize()
+    public  void loadandresize()
     {
         //Roter Punkt verkleinert
         img1 = new ImageIcon("images/redcircle.png");
