@@ -130,7 +130,7 @@ public class Spielfeld {
         
         for (int i = 6 ; i >= 0; i--) {
             if (hatChip(i, y) == false){
-                feld[i][y].setText("T");
+                feld[i][y].setIcon(images.img2);
                 break;
             }
             
@@ -139,7 +139,7 @@ public class Spielfeld {
     }
 
     public boolean hatChip(int x, int y) {
-        if (feld[x][y].getText().equals(" ")) {
+        if (feld[x][y].getIcon() == null) {
             return false;
 
         } else {
