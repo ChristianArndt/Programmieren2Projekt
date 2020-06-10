@@ -13,7 +13,7 @@ public class Spielfeld {
     ImageManager images = new ImageManager();
     //
     JFrame frame;
-    JLabel[][] feld = new JLabel[7][7];
+    Zelle[][] feld = new Zelle[7][7];
     JPanel topMenu = new JPanel();
     JPanel bottomMenu = new JPanel();
     JPanel feldPanel = new JPanel();
@@ -25,6 +25,8 @@ public class Spielfeld {
     JButton spalte5 = new JButton("Spalte 5");
     JButton spalte6 = new JButton("Spalte 6");
     JButton spalte7 = new JButton("Spalte 7");
+
+    boolean gelbxrot; // true = gelb, false = rot
 
     Spielfeld() {
         // Frame initializion
@@ -98,7 +100,7 @@ public class Spielfeld {
         feldPanel.setLayout(new GridLayout(7, 7));
         for (int i = 0; i < feld.length; i++) {
             for (int j = 0; j < feld[i].length; j++) {
-                feld[i][j] = new JLabel(" ");
+                feld[i][j] = new Zelle();
                 feld[i][j].setOpaque(true);
                 feld[i][j].setBackground(Color.white);
                 feld[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
@@ -127,13 +129,24 @@ public class Spielfeld {
 
     public void setzeChip(int y) {
         System.out.println(y);
-        
-        for (int i = 6 ; i >= 0; i--) {
-            if (hatChip(i, y) == false){
-                feld[i][y].setIcon(images.img2);
+
+        for (int i = 6; i >= 0; i--) {
+            if (hatChip(i, y) == false) {
+                
+
+                if (gelbxrot) {
+                    feld[i][y].setIcon(images.img2);
+                    feld[i][y].Farbe = "gelb";
+                } else {
+                    feld[i][y].setIcon(images.img1);
+                    feld[i][y].Farbe = "rot";
+                }
+                feld[i][y].setHorizontalAlignment(Zelle.CENTER);
+                gelbxrot = !gelbxrot;
+                System.out.println(getGewinner());
                 break;
             }
-            
+
         }
         frame.repaint();
     }
@@ -145,6 +158,76 @@ public class Spielfeld {
         } else {
             return true;
         }
+    }
+
+    public int getGewinner() {
+        // Gewinnbedingung
+        // -1 : keiner Gewinnt, noch nicht gewonnen
+        // 0 : Unentschieden
+        // 1 : Spieler Eins hat gewonnen(rot)
+        // 2 : Spieler Zwei hat gewonnen(gelb)
+        // y= spalte
+
+        // Überprüft die Zeilen (x) ob gewonnen wurde
+        for (int x = 0; x < feld[0].length; x++) {
+            Zelle[] zeile = feld[x];
+            int anzahlRote = 0;
+            int anzahlGelb = 0;
+            for (int y = 0; y < feld.length; y++) {
+                Zelle zelle = zeile[y];
+                if (zelle.istRot()) {
+
+                    anzahlRote++;
+                    anzahlGelb = 0;
+                } else if (zelle.istGelb()) {
+                    anzahlGelb++;
+                    anzahlRote = 0;
+                } else {
+                    // Zelle ist leer
+                    anzahlRote = 0;
+                    anzahlGelb = 0;
+                }
+
+                if (anzahlRote == 4) {
+                    return 1;
+                } else if (anzahlGelb == 4) {
+                    return 2;
+                }
+
+            }
+
+        }
+
+        // Überprüft die Spalten (y) ob gewonnen wurde
+        
+        for (int y = 0; y < feld.length; y++) {
+            int anzahlRote = 0;
+            int anzahlGelb = 0;
+            for (int x = 0; x < feld[0].length; x++) {
+                Zelle zelle = feld[x][y];
+                if (zelle.istRot()) {
+
+                    anzahlRote++;
+                    anzahlGelb = 0;
+                } else if (zelle.istGelb()) {
+                    anzahlGelb++;
+                    anzahlRote = 0;
+                } else {
+                    // Zelle ist leer
+                    anzahlRote = 0;
+                    anzahlGelb = 0;
+                }
+
+                if (anzahlRote == 4) {
+                    return 1;
+                } else if (anzahlGelb == 4) {
+                    return 2;
+                }
+            }
+        }
+
+        return -1;
+
     }
 
 }

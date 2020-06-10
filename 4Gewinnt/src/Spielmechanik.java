@@ -10,7 +10,7 @@ public class Spielmechanik {
         for(int i = 0; i < 7; i++)
         {
             for(int j = 0; i < 7; i++) {
-                spielFeld.feld[i][j] = new JLabel(" ");
+                spielFeld.feld[i][j] = new Zelle();
             }
         }
     }

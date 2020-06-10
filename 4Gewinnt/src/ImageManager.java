@@ -5,8 +5,9 @@ public class ImageManager {
     public static ImageIcon img1;
     public ImageIcon img2;
 
-    public  void loadandresize()
-    {
+    public void loadandresize() {
+        
+        
         //Roter Punkt verkleinert
         img1 = new ImageIcon("images/redcircle.png");
         Image image = img1.getImage();
