@@ -128,11 +128,9 @@ public class Spielfeld {
     }
 
     public void setzeChip(int y) {
-        System.out.println(y);
 
         for (int i = 6; i >= 0; i--) {
             if (hatChip(i, y) == false) {
-                
 
                 if (gelbxrot) {
                     feld[i][y].setIcon(images.img2);
@@ -199,7 +197,7 @@ public class Spielfeld {
         }
 
         // Überprüft die Spalten (y) ob gewonnen wurde
-        
+
         for (int y = 0; y < feld.length; y++) {
             int anzahlRote = 0;
             int anzahlGelb = 0;
@@ -225,8 +223,96 @@ public class Spielfeld {
                 }
             }
         }
+        // Überprüft die Diagonalen ob gewonnen wurde
 
-        return -1;
+        // Oben links --> unten rechts
+
+        int WIDTH = feld[0].length;
+        int HEIGHT = feld.length;
+        for (int k = 0; k <= WIDTH + HEIGHT - 2; k++) {
+            int anzahlRote = 0;
+            int anzahlGelb = 0;
+            for (int j = 0; j <= k; j++) {
+                int i = k - j;
+                if (i < HEIGHT && j < WIDTH) {
+                    Zelle zelle = feld[i][j];
+
+                    if (zelle.istRot()) {
+
+                        anzahlRote++;
+                        anzahlGelb = 0;
+                    } else if (zelle.istGelb()) {
+                        anzahlGelb++;
+                        anzahlRote = 0;
+                    } else {
+                        // Zelle ist leer
+                        anzahlRote = 0;
+                        anzahlGelb = 0;
+                    }
+
+                    if (anzahlRote == 4) {
+                        return 1;
+                    } else if (anzahlGelb == 4) {
+                        return 2;
+                    }
+
+                }
+            }
+
+        }
+        // Unten links --> oben rechts
+
+        WIDTH = feld[0].length;
+        HEIGHT = feld.length;
+        for (int k = 0; k <= WIDTH + HEIGHT - 2; k++) {
+            int anzahlRote = 0;
+            int anzahlGelb = 0;
+            for (int j = 0; j <= k; j++) {
+                int i = k - j;
+                if (i < HEIGHT && j < WIDTH) {
+                    Zelle zelle = feld[HEIGHT - 1 - i][j];
+
+                    if (zelle.istRot()) {
+
+                        anzahlRote++;
+                        anzahlGelb = 0;
+                    } else if (zelle.istGelb()) {
+                        anzahlGelb++;
+                        anzahlRote = 0;
+                    } else {
+                        // Zelle ist leer
+                        anzahlRote = 0;
+                        anzahlGelb = 0;
+                    }
+
+                    if (anzahlRote == 4) {
+                        return 1;
+                    } else if (anzahlGelb == 4) {
+                        return 2;
+                    }
+
+                }
+            }
+
+        }
+        int volleZellen = 0;
+        for (int x = 0; x < feld[0].length; x++) {
+            for (int y = 0; y < feld.length; y++) {
+                Zelle zelle = feld[x][y];
+                
+                if (zelle.istRot()||zelle.istGelb()){
+                    volleZellen ++;
+                }
+
+            }
+        }
+        if (volleZellen == feld.length * feld[0].length )
+        {
+            return 0; //Spiel geht unentschieden aus 
+        }
+
+
+        return -1; // noch keiner hat gewonnen
 
     }
 
