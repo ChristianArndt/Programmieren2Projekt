@@ -1,11 +1,12 @@
 import javax.swing.*;
+import java.rmi.RemoteException;
 
 public class Spielmechanik {
 
     public static void main(String[] args) {
 
     }
-    void clearFeld() {
+   /* void clearFeld() throws RemoteException {
         Spielfeld spielFeld = new Spielfeld();
         for(int i = 0; i < 7; i++)
         {
@@ -14,7 +15,7 @@ public class Spielmechanik {
             }
         }
     }
-    void istSpalteLeer() {
+    void istSpalteLeer() throws RemoteException {
         Spielfeld spielFeld = new Spielfeld();
         for (int i = 0; i < 7; i++) {
             for (int j = 0; i < 7; i++) {
@@ -25,5 +26,5 @@ public class Spielmechanik {
                 }
             }
         }
-    }
+    }*/
 }

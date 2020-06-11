@@ -3,14 +3,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-public class Spielfeld {
+public class Spielfeld extends UnicastRemoteObject implements CSInterface{
     // Verknüpfungen
     Spielmechanik gameMech = new Spielmechanik();
     ImageManager images = new ImageManager();
+
     //
     JFrame frame;
     Zelle[][] feld = new Zelle[7][7];
@@ -28,7 +36,8 @@ public class Spielfeld {
 
     boolean gelbxrot; // true = gelb, false = rot
 
-    Spielfeld() {
+    Spielfeld() throws RemoteException {
+        super();
         // Frame initializion
         spalte1.addActionListener(new ActionListener() {
             @Override
@@ -90,8 +99,18 @@ public class Spielfeld {
         images.loadandresize();
 
     }
+    public void serverstart() throws RemoteException, MalformedURLException, NotBoundException {
+            Registry registry = LocateRegistry.createRegistry(5099);
+            registry.rebind("4gewinnt",  new Spielfeld());
+            System.out.println("Server wurde gestartet");
+    }
 
-    public static void main(String[] a) {
+    public void clientstart() throws RemoteException, NotBoundException, MalformedURLException {
+        CSInterface service = (CSInterface) Naming.lookup("rmi://localhost:5099/4gewinnt");
+        System.out.println("Client hinzugefügt");
+    }
+
+    public static void main(String[] a) throws RemoteException {
 
         new Spielfeld();
     }

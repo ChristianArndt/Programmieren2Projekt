@@ -1,18 +1,67 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
-public class Menu {
+public class Menu extends JFrame implements ActionListener {
+    //Menü
+    JLabel gameName = new JLabel("4 Gewinnt");
+    JButton newGame = new JButton("Create Lobby");
+    JButton joinGame = new JButton("Join Lobby");
+
+    Menu() {
+        createMenu();
+        newGame.addActionListener(this);
+        joinGame.addActionListener(this);
+
+        newGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    //Server startServer = new Server();
+                    Spielfeld game = new Spielfeld();
+                    game.serverstart();
+                } catch (RemoteException ex) {
+                    ex.printStackTrace();
+                } catch (MalformedURLException ex) {
+                    ex.printStackTrace();
+                } catch (NotBoundException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+        });
+        joinGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    //Server startServer = new Server();
+                    Spielfeld game = new Spielfeld();
+                    game.clientstart();
+                } catch (RemoteException ex) {
+                    ex.printStackTrace();
+                } catch (MalformedURLException ex) {
+                    ex.printStackTrace();
+                } catch (NotBoundException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+    }
     public static void main(String[] args) {
+        Menu menu = new Menu();
+
+    }
+    public void createMenu(){
+
         //Window
         JFrame frame = new JFrame("4 Gewinnt");
         frame.setSize(600,500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        //Menü
-        JLabel gameName = new JLabel("4 Gewinnt");
-        JButton newGame = new JButton("Create Lobby");
-        JButton joinGame = new JButton("Join Lobby");
-
 
         //GridBagLayout
         frame.setLayout(new GridBagLayout());
@@ -34,6 +83,10 @@ public class Menu {
         contain.gridy = 2;
         contain.gridwidth = 2;
         frame.getContentPane().add(joinGame,contain);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
 
     }
 }
