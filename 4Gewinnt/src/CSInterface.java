@@ -3,4 +3,9 @@ import java.rmi.RemoteException;
 
 public interface CSInterface extends Remote {
     public void setzeChip(int y) throws RemoteException;
+    public int chipGesetzt() throws RemoteException;
+
+
+    
 }
+

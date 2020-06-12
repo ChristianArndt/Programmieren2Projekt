@@ -11,6 +11,7 @@ public class Menu extends JFrame implements ActionListener {
     JLabel gameName = new JLabel("4 Gewinnt");
     JButton newGame = new JButton("Create Lobby");
     JButton joinGame = new JButton("Join Lobby");
+    Spielfeld game;
 
     Menu() {
         createMenu();
@@ -22,8 +23,10 @@ public class Menu extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 try {
                     //Server startServer = new Server();
-                    Spielfeld game = new Spielfeld();
+                    game = new Spielfeld();
+
                     game.serverstart();
+                   
                 } catch (RemoteException ex) {
                     ex.printStackTrace();
                 } catch (MalformedURLException ex) {
@@ -39,8 +42,9 @@ public class Menu extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     //Server startServer = new Server();
-                    Spielfeld game = new Spielfeld();
+                    game = new Spielfeld();
                     game.clientstart();
+                    
                 } catch (RemoteException ex) {
                     ex.printStackTrace();
                 } catch (MalformedURLException ex) {

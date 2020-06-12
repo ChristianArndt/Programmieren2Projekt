@@ -15,13 +15,15 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 public class Spielfeld extends UnicastRemoteObject implements CSInterface{
+
+    CSInterface service;
     // Verknüpfungen
     Spielmechanik gameMech = new Spielmechanik();
     ImageManager images = new ImageManager();
 
     //
     JFrame frame;
-    Zelle[][] feld = new Zelle[7][7];
+    Zelle[][] feld = new Zelle[6][7];
     JPanel topMenu = new JPanel();
     JPanel bottomMenu = new JPanel();
     JPanel feldPanel = new JPanel();
@@ -36,6 +38,7 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
 
     boolean gelbxrot; // true = gelb, false = rot
 
+
     Spielfeld() throws RemoteException {
         super();
         // Frame initializion
@@ -43,6 +46,12 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setzeChip(0);
+                try {
+                    service.setzeChip(0);
+                } catch(Exception ex){
+
+                }
+                
 
             }
         });
@@ -50,6 +59,11 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setzeChip(1);
+                try {
+                    service.setzeChip(1);
+                } catch(Exception ex){
+
+                }
 
             }
         });
@@ -57,6 +71,11 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setzeChip(2);
+                try {
+                    service.setzeChip(2);
+                } catch(Exception ex){
+
+                }
 
             }
         });
@@ -64,6 +83,11 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setzeChip(3);
+                try {
+                    service.setzeChip(3);
+                } catch(Exception ex){
+
+                }
 
             }
         });
@@ -71,6 +95,11 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setzeChip(4);
+                try {
+                    service.setzeChip(4);
+                } catch(Exception ex){
+
+                }
 
             }
         });
@@ -78,6 +107,11 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setzeChip(5);
+                try {
+                    service.setzeChip(5);
+                } catch(Exception ex){
+
+                }
 
             }
         });
@@ -85,6 +119,11 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
             @Override
             public void actionPerformed(ActionEvent e) {
                 setzeChip(6);
+                try {
+                    service.setzeChip(6);
+                } catch(Exception ex){
+
+                }
 
             }
         });
@@ -100,23 +139,30 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
 
     }
     public void serverstart() throws RemoteException, MalformedURLException, NotBoundException {
-            Registry registry = LocateRegistry.createRegistry(5099);
-            registry.rebind("4gewinnt",  new Spielfeld());
+            Registry registry = LocateRegistry.createRegistry(49153);
+            registry.rebind("4gewinnt",  this);
             System.out.println("Server wurde gestartet");
     }
 
     public void clientstart() throws RemoteException, NotBoundException, MalformedURLException {
-        CSInterface service = (CSInterface) Naming.lookup("rmi://localhost:5099/4gewinnt");
+        service = (CSInterface) Naming.lookup("rmi://localhost:49153/4gewinnt");
         System.out.println("Client hinzugefügt");
     }
 
-    public static void main(String[] a) throws RemoteException {
+    
+    //Fragt den Sever, in welche Spalte ein Chip gesetzt wurde
+    
+    public int chipGesetzt() throws RemoteException {
+      //-1: Noch kein Chip gesetzt 
+      //0-6 : Spalte  
 
-        new Spielfeld();
+
+      
+        return -1;
     }
 
     public void createFeld() {
-        feldPanel.setLayout(new GridLayout(7, 7));
+        feldPanel.setLayout(new GridLayout(feld.length, feld [0].length));
         for (int i = 0; i < feld.length; i++) {
             for (int j = 0; j < feld[i].length; j++) {
                 feld[i][j] = new Zelle();
@@ -148,7 +194,7 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
 
     public void setzeChip(int y) {
 
-        for (int i = 6; i >= 0; i--) {
+        for (int i = feld.length-1 ; i >= 0; i--) {
             if (hatChip(i, y) == false) {
 
                 if (gelbxrot) {
@@ -186,11 +232,11 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
         // y= spalte
 
         // Überprüft die Zeilen (x) ob gewonnen wurde
-        for (int x = 0; x < feld[0].length; x++) {
+        for (int x = 0; x < feld.length; x++) {
             Zelle[] zeile = feld[x];
             int anzahlRote = 0;
             int anzahlGelb = 0;
-            for (int y = 0; y < feld.length; y++) {
+            for (int y = 0; y < feld[0].length; y++) {
                 Zelle zelle = zeile[y];
                 if (zelle.istRot()) {
 
@@ -217,10 +263,10 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
 
         // Überprüft die Spalten (y) ob gewonnen wurde
 
-        for (int y = 0; y < feld.length; y++) {
+        for (int y = 0; y < feld[0].length; y++) {
             int anzahlRote = 0;
             int anzahlGelb = 0;
-            for (int x = 0; x < feld[0].length; x++) {
+            for (int x = 0; x < feld.length; x++) {
                 Zelle zelle = feld[x][y];
                 if (zelle.istRot()) {
 
@@ -315,8 +361,8 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
 
         }
         int volleZellen = 0;
-        for (int x = 0; x < feld[0].length; x++) {
-            for (int y = 0; y < feld.length; y++) {
+        for (int x = 0; x < feld.length; x++) {
+            for (int y = 0; y < feld[0].length; y++) {
                 Zelle zelle = feld[x][y];
                 
                 if (zelle.istRot()||zelle.istGelb()){

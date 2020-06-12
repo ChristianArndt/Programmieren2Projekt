@@ -4,10 +4,7 @@ import java.rmi.*;
 
 public class VierGewinntServer {
 
-	public static void main(String[] args) {
-		VierGewinntServer server = new VierGewinntServer(8000);	
-		server.startListening();
-	}
+	
 	
 		private int port;
 		

@@ -3,10 +3,7 @@ import java.net.Socket;
 
 public class VierGewinntClient {
 	
-	public static void main(String[] args) {
-		VierGewinntClient client = new VierGewinntClient("localhost", 8000);
-		
-	} 
+	
 	
 	private InetSocketAddress address;
 	

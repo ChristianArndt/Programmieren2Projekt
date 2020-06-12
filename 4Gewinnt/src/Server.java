@@ -6,12 +6,9 @@ import java.rmi.registry.Registry;
 
 public class Server {
     Server() throws RemoteException, MalformedURLException, NotBoundException {
-        Registry registry = LocateRegistry.createRegistry(5099);
+        Registry registry = LocateRegistry.createRegistry(49153);
         registry.rebind("4gewinnt",  new Spielfeld());
         System.out.println("Server wurde gestartet");
     }
-    public static void main(String[] args) throws RemoteException, MalformedURLException, NotBoundException {
-        Server server = new Server();
-
-    }
+    
 }
