@@ -8,7 +8,6 @@ public class Zelle extends JLabel {
 
     public Zelle() {
         super();
-       
     }
 
     public boolean istRot() {

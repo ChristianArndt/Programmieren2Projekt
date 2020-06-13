@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -9,10 +12,11 @@ import java.rmi.RemoteException;
 public class Menu extends JFrame implements ActionListener {
     //Menü
     JLabel gameName = new JLabel("4 Gewinnt");
+    JLabel letzterGewinner = new JLabel("Letzter Gewinner: Keiner");
     JButton newGame = new JButton("Create Lobby");
     JButton joinGame = new JButton("Join Lobby");
     Spielfeld game;
-
+    SaveWinner sW = new SaveWinner();
     Menu() {
         createMenu();
         newGame.addActionListener(this);
@@ -22,9 +26,7 @@ public class Menu extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    //Server startServer = new Server();
                     game = new Spielfeld();
-
                     game.serverstart();
                    
                 } catch (RemoteException ex) {
@@ -41,7 +43,6 @@ public class Menu extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
-                    //Server startServer = new Server();
                     game = new Spielfeld();
                     game.clientstart();
                     
@@ -57,7 +58,6 @@ public class Menu extends JFrame implements ActionListener {
     }
     public static void main(String[] args) {
         Menu menu = new Menu();
-
     }
     public void createMenu(){
 
@@ -77,6 +77,21 @@ public class Menu extends JFrame implements ActionListener {
         contain.gridy = 0;
         contain.gridwidth = 1;
         frame.getContentPane().add(gameName, contain);
+        //Letzter Gewinner
+        contain.gridx = 0;
+        contain.gridy = 3;
+        contain.gridwidth = 3;
+        frame.getContentPane().add(letzterGewinner,contain);
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader("lastWinner.txt"));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                letzterGewinner.setText(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //Create Lobby Button
         contain.gridx = 0;
         contain.gridy = 1;
