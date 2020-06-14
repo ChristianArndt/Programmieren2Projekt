@@ -15,6 +15,7 @@ public class Menu extends JFrame implements ActionListener {
     JLabel letzterGewinner = new JLabel("Letzter Gewinner: Keiner");
     JButton newGame = new JButton("Create Lobby");
     JButton joinGame = new JButton("Join Lobby");
+    //Variablen
     Spielfeld game;
     SaveWinner sW = new SaveWinner();
     Menu() {
@@ -60,7 +61,6 @@ public class Menu extends JFrame implements ActionListener {
         Menu menu = new Menu();
     }
     public void createMenu(){
-
         //Window
         JFrame frame = new JFrame("4 Gewinnt");
         frame.setSize(600,500);
@@ -82,6 +82,7 @@ public class Menu extends JFrame implements ActionListener {
         contain.gridy = 3;
         contain.gridwidth = 3;
         frame.getContentPane().add(letzterGewinner,contain);
+        //Liest lastWinner.txt aus
         BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader("lastWinner.txt"));
@@ -103,7 +104,6 @@ public class Menu extends JFrame implements ActionListener {
         contain.gridwidth = 2;
         frame.getContentPane().add(joinGame,contain);
     }
-
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
 

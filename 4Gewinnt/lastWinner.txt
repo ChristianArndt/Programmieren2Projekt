@@ -1,1 +1,1 @@
-Der Spieler rot hat als letztes gewonnen!
+Der Spieler gelb hat als letztes gewonnen!

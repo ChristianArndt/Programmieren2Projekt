@@ -2,6 +2,9 @@ import java.awt.*;
 
 import javax.swing.JLabel;
 
+/**
+ * Sendet die Farben als return zurück
+ */
 public class Zelle extends JLabel {
 
     public String Farbe = "";

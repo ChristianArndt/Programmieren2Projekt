@@ -1,18 +1,16 @@
 import javax.swing.*;
-import java.rmi.RemoteException;
 
+/**
+ * Sendet eine Nachricht an die Spieler ob gewonnen oder unentschieden
+ */
 public class MessageHandler {
     SaveWinner sW = new SaveWinner();
 
-    public MessageHandler() throws RemoteException {
-    }
-
     public void sendWinMsg(String winner)
     {
-
         if(winner == "gelb")
         {
-             JOptionPane.showConfirmDialog(null, "Spieler gelb hat gewonnen!", "Winner",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "Spieler gelb hat gewonnen!", "Winner",JOptionPane.PLAIN_MESSAGE);
             sW.saveWinner("Der Spieler gelb hat als letztes gewonnen!");
             System.exit(0);
         }

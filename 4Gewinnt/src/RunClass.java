@@ -1,5 +1,8 @@
 import java.rmi.RemoteException;
 
+/**
+ * Erstellt einen Thread für den Client um die gesetzten Chips des Servers im Client zu setzen
+ */
 public class RunClass implements Runnable {
     Spielfeld game;
     public RunClass(Spielfeld g) throws RemoteException {

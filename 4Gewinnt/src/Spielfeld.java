@@ -1,17 +1,18 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 
+/**
+ * Kümmert sich um die Verbindung des Clients/Servers
+ * Erstellt das Fenster des Spiels mit den dazugehörigen Buttons
+ * Überprüft gesetzte Chips, Gewinner und wie gewonnen wurde.
+ */
 public class Spielfeld extends UnicastRemoteObject implements CSInterface{
 
     CSInterface service;
@@ -32,7 +33,7 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
     JButton spalte5 = new JButton("Spalte 5");
     JButton spalte6 = new JButton("Spalte 6");
     JButton spalte7 = new JButton("Spalte 7");
-    JLabel currentPlayerLabel = new JLabel("Aktueller Spieler ist am Zug: Rot (Host) ");
+    JLabel currentPlayerLabel = new JLabel("Aktueller Spieler ist am Zug: Rot (Host)");
     JLabel player = new JLabel("");
     //Labels
     boolean isServer;
@@ -153,6 +154,7 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
         images.loadandresize();
 
     }
+    //Server + Client startet
     public void serverstart() throws RemoteException, MalformedURLException, NotBoundException {
             Registry registry = LocateRegistry.createRegistry(49153);
             registry.rebind("4gewinnt",  this);
@@ -199,6 +201,7 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
         topMenu.add(player);
         topMenu.add(currentPlayerLabel);
     }
+    //Setzt einen Chip ins Spielfeld
     public void setzeChip(int y)  {
 
         for (int i = feld.length-1 ; i >= 0; i--) {
@@ -253,7 +256,7 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
         // 1 : Spieler Eins hat gewonnen(rot)
         // 2 : Spieler Zwei hat gewonnen(gelb)
 
-        // Überprüft die Zeilen (x) ob gewonnen wurde
+        // Überprüft die Zeilen ob gewonnen wurde
         for (int x = 0; x < feld.length; x++) {
             Zelle[] zeile = feld[x];
             int anzahlRote = 0;
@@ -281,7 +284,7 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
                 }
             }
         }
-        // Überprüft die Spalten (y) ob gewonnen wurde
+        // Überprüft die Spalten ob gewonnen wurde
         for (int y = 0; y < feld[0].length; y++) {
             int anzahlRote = 0;
             int anzahlGelb = 0;
@@ -390,6 +393,7 @@ public class Spielfeld extends UnicastRemoteObject implements CSInterface{
                 }
             }
         }
+        //Unentschieden
         if (volleZellen == feld.length * feld[0].length )
         {
             msg.sendDrawMsg();
